@@ -780,3 +780,31 @@ p { margin: 0 0 1em; }
 .contact-stack .hub-list { grid-template-columns: 1fr; }
 
 .layout-aside .offset-image { margin-top: 2.5rem; }
+
+
+/* ---------- Language toggle: active and inactive the same size ---------- */
+.lang-switch > a, .lang-switch > span { display: inline-grid; place-items: center; width: 46px; height: 40px; padding: 0; box-sizing: border-box; line-height: 1; }
+
+/* ---------- "Our businesses" dropdown ---------- */
+.has-sub { position: relative; display: flex; align-items: center; }
+.sub-toggle { display: inline-grid; place-items: center; width: 26px; height: 32px; margin-left: -0.35rem; padding: 0; background: none; border: 0; color: var(--text); cursor: pointer; }
+.sub-toggle svg { transition: transform 0.2s; }
+.has-sub.is-open .sub-toggle svg { transform: rotate(180deg); }
+.sub-menu { list-style: none; margin: 0; padding: 0.5rem; position: absolute; top: calc(100% + 6px); left: 0; min-width: 300px; display: flex; flex-direction: column; gap: 0; background: var(--bg); border: 1px solid var(--line); border-top: 3px solid var(--gold); box-shadow: 0 18px 40px rgba(0, 36, 92, 0.18); opacity: 0; visibility: hidden; transform: translateY(6px); transition: opacity 0.18s, transform 0.18s, visibility 0.18s; z-index: 60; }
+.sub-menu::before { content: ""; position: absolute; left: 0; right: 0; top: -12px; height: 12px; } /* hover bridge */
+.has-sub:hover .sub-menu, .has-sub:focus-within .sub-menu, .has-sub.is-open .sub-menu { opacity: 1; visibility: visible; transform: none; }
+.main-nav .sub-menu a { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 0.8rem; border-bottom: 0; font-size: 0.74rem; white-space: nowrap; }
+.main-nav .sub-menu a:hover { background: var(--surface); color: var(--heading); }
+.sub-icon { width: 22px; height: 22px; color: var(--accent-ink); flex-shrink: 0; }
+.sub-all { border-top: 1px solid var(--line); margin-top: 0.35rem; padding-top: 0.35rem; }
+.main-nav .sub-all a { color: var(--accent-ink); }
+@media (max-width: 1180px) {
+  .has-sub { flex-wrap: wrap; }
+  .has-sub > a { flex: 1; }
+  .sub-toggle { width: 44px; height: 44px; margin: 0; }
+  .sub-menu { position: static; min-width: 0; width: 100%; box-shadow: none; border: 0; border-left: 2px solid var(--gold); padding: 0 0 0.5rem 0.75rem; display: none; opacity: 1; visibility: visible; transform: none; }
+  .sub-menu::before { content: none; }
+  .has-sub:hover .sub-menu, .has-sub:focus-within .sub-menu { display: none; }
+  .has-sub.is-open .sub-menu { display: flex; }
+  .main-nav .sub-menu a { border-bottom: 1px solid var(--line); }
+}

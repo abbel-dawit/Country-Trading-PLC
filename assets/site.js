@@ -62,6 +62,15 @@
     });
   }
 
+  /* 3b. "Our businesses" dropdown: button toggles it (hover and keyboard focus also open it on desktop) */
+  $$(".has-sub").forEach(function (li) {
+    var btn = li.querySelector(".sub-toggle");
+    var set = function (open) { li.classList.toggle("is-open", open); btn.setAttribute("aria-expanded", open ? "true" : "false"); };
+    btn.addEventListener("click", function (e) { e.stopPropagation(); set(!li.classList.contains("is-open")); });
+    li.addEventListener("keydown", function (e) { if (e.key === "Escape" && li.classList.contains("is-open")) { set(false); btn.focus(); } });
+    document.addEventListener("click", function (e) { if (!li.contains(e.target)) set(false); });
+  });
+
   /* 4. Remember the language choice (used by the root page) */
   $$("[data-lang]").forEach(function (a) { a.addEventListener("click", function () { store.set("ct-locale", a.getAttribute("data-lang")); }); });
 
