@@ -32,7 +32,7 @@
     if (isEmail(site[el.getAttribute("data-site-missing")] || site.email)) el.hidden = true;
   });
 
-  /* 2. Light / dark theme (the first choice comes from the system setting) */
+  /* 2. Light / dark theme (light is the default; a visitor's choice is remembered) */
   var tt = document.querySelector(".theme-toggle");
   if (tt) {
     var sync = function () {
@@ -190,6 +190,17 @@
       var txt = "Subject: " + box.querySelector('[data-preview="subject"]').textContent + "\n\n" + body.value;
       if (navigator.clipboard) navigator.clipboard.writeText(txt).then(done, function () { body.select(); document.execCommand("copy"); done(); });
       else { body.select(); document.execCommand("copy"); done(); }
+    });
+  });
+
+  /* Back to top: always scroll to the very top of the page (on phones "#main" stopped short of the header) */
+  $$(".f-top-link").forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      e.preventDefault();
+      var main = document.getElementById("main");
+      if (main) { try { main.focus({ preventScroll: true }); } catch (err) { main.focus(); } }
+      window.scrollTo({ top: 0, left: 0, behavior: reduce ? "auto" : "smooth" });
+      if (history.replaceState) history.replaceState(null, "", location.pathname + location.search);
     });
   });
 })();
